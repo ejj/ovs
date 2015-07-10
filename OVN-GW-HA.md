@@ -106,7 +106,7 @@ In this section, we'll work through a basic simple L3HA implementation, on top
 of which we'll gradually build more sophisticated features explaining their
 motivations and implementations as we go.
 
-### Naive-active-backup.
+### Naive active-backup.
 Let's assume that there are a collection of logical routers which a tenant has
 asked for, our task is to schedule these logical routers on one of N gateways,
 and gracefully redistribute the routers on gateways which have failed.  The
@@ -138,9 +138,9 @@ This approach basically works in most cases and should likely be the starting
 point for OVN — it's strictly better than no HA solution and is a good
 foundation for more sophisticated solutions.  That said, it's not without it's
 limitations. Specifically, this approach doesn't coordinate with the physical
-network to minimize disruption during failures, tightly couples failover to
-ovn-northd (we'll discuss why this is bad in a bit), and wastes resources
-by leaving backup gateways completely unutilized.
+network to minimize disruption during failures, and it tightly couples failover
+to ovn-northd (we'll discuss why this is bad in a bit), and wastes resources by
+leaving backup gateways completely unutilized.
 
 ##### Router Failover
 When ovn-northd notices the leader has died and decides to migrate routers
@@ -149,7 +149,7 @@ to the new gateway.  Otherwise, traffic could be blackholed for longer than
 necessary making failovers worse than they need to be.
 
 For now, let's assume that OVN requires all gateways to be on the same IP
-subnet from the physical networks perspective.  If this isn't the case,
+subnet on the physical network.  If this isn't the case,
 gateways would need to participate in routing protocols to orchestrate
 failovers, something which is difficult and out of scope of this document.
 
