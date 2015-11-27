@@ -1799,7 +1799,6 @@ add_column_noalert(struct ovsdb_idl *idl,
 int
 main(int argc, char *argv[])
 {
-    extern struct vlog_module VLM_reconnect;
     struct ovsdb_idl *ovnnb_idl, *ovnsb_idl;
     unsigned int ovnnb_seqno, ovn_seqno;
     int res = EXIT_SUCCESS;
@@ -1815,8 +1814,6 @@ main(int argc, char *argv[])
     fatal_ignore_sigpipe();
     set_program_name(argv[0]);
     service_start(&argc, &argv);
-    vlog_set_levels(NULL, VLF_CONSOLE, VLL_WARN);
-    vlog_set_levels(&VLM_reconnect, VLF_ANY_DESTINATION, VLL_WARN);
     parse_options(argc, argv);
 
     daemonize_start(false);
